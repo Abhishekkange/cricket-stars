@@ -7,7 +7,7 @@ const connectToMongoose = () => {
   if(!connection) {
     
     const uri = process.env.MONGO_URL; // Use environment variable for MongoDB connection URI
-    const dbName = "localecommerce"; // Your database name
+    const dbName = "cricket_stars"; // Your database name
   
    connection =  mongoose.connect(`${uri}/${dbName}`, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => {

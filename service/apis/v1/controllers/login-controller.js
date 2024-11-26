@@ -1,3 +1,8 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user-model.js'); // Updated import for your User schema
+
+
 async function login(req,res)
 {
     const { emailOrPhone, password } = req.body;

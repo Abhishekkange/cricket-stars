@@ -1,18 +1,13 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
-const User = require('../models/user-model'); // Updated import for your User schema
+const User = require('../models/user-model.js'); // Updated import for your User schema
 const fetchUser = require("../middleware/fetchUser");
-const { otpgeneration, OTP } = require('../middlewares/sendotp');
-const constants = require('../constants');
+const { otpgeneration, OTP } = require('../middlewares/sendotp.js');
+const constants = require('../constants.js');
 const registerController = require('../controllers/register-controller.js')
 const loginController = require('../controllers/login-controller.js')
 const serviceController = require('../controllers/service-controller.js')
-
 const Router = express.Router();
 const saltRounds = 10;
-
 
 // Register User
 Router.post('/register',registerController.register);

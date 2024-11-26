@@ -1,5 +1,9 @@
 //Regiquired Imports
 const { register } = require("module");
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const User = require('../models/user-model.js'); // Updated import for your User schema
+
 
 //Helper function
 //  Nodemailer Config
