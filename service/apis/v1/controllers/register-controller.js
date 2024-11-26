@@ -3,6 +3,7 @@ const { register } = require("module");
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const User = require('../models/user-model.js'); // Updated import for your User schema
+const saltRounds = 10;
 
 
 //Helper function
@@ -26,7 +27,6 @@ async function sendOTPByEmail(email, otp, userName) {
     html: `
     <p>Hello ${userName},</p>
     <p>Your OTP for verification is: <strong>${otp}</strong>.</p>
-    <p>Thank you for choosing NearbyKart!</p>
     `,
   };
 
@@ -35,7 +35,7 @@ async function sendOTPByEmail(email, otp, userName) {
 
 
 //Required Functions
-async function regsiter(req,res)
+async function register(req,res)
 {
     try {
         const { email, phone, username, password } = req.body;

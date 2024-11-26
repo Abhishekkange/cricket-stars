@@ -7,7 +7,7 @@ const registerController = require('../controllers/register-controller.js')
 const loginController = require('../controllers/login-controller.js')
 const serviceController = require('../controllers/service-controller.js')
 const Router = express.Router();
-const saltRounds = 10;
+
 
 // Register User
 Router.post('/register',registerController.register);
