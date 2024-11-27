@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user-model.js'); // Updated import for your User schema
 const saltRounds = 10;
 const constants = require('../constants.js')
+const jwt = require('jsonwebtoken');
 
 
 //Helper function
@@ -102,4 +103,24 @@ async function verifyOtp(req,res)
 
 }
 
-module.exports = {registerHandler,verifyOtp}
+async function verifyJwt(req,res){
+
+  const JWT_TOKEN = req.body.JWT_TOKEN;
+  console.log(JWT_TOKEN);
+
+    jwt.verify(JWT_TOKEN, 'shahrukhkhan', (err, decoded) => {
+        if (err) {
+          // Handle verification or decoding errors
+          console.error(err);
+        } else {
+         
+          const userData2 = decoded.userData; 
+          console.log("data is "+userData2);
+          return res.send(userData2);
+
+
+        }
+      });
+}
+
+module.exports = {registerHandler,verifyOtp,verifyJwt}

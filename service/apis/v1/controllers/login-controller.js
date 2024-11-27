@@ -1,16 +1,15 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const constant = require('../constants.js');
 const User = require('../models/user-model.js'); // Updated import for your User schema
 
 
 async function login(req,res)
 {
-    const { emailOrPhone, password } = req.body;
+    const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({
-      $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
-    });
+    const user = await User.findOne({email:email});
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -24,7 +23,7 @@ async function login(req,res)
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, role: user.role },
-      '7211821',
+      'shahrukhkhan',
       { expiresIn: '7d' } // Token valid for 7 days
     );
 

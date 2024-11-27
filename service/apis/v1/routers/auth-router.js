@@ -5,6 +5,7 @@ const serviceController = require('../controllers/service-controller.js')
 const Router = express.Router();
 
 
+
 // Register User
 Router.post('/register',registerController.registerHandler);
 
@@ -13,6 +14,9 @@ Router.post('/verifyotp',registerController.verifyOtp);
 
 // Login User
 Router.post('/login',loginController.login);
+
+//JWT verification : Get userId from JWT
+Router.post('/getUserId', registerController.verifyJwt);
 
 // Forgot Password
 Router.post('/forgotpassword',loginController.forgetpassword);
