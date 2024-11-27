@@ -1,6 +1,7 @@
 const constants = {
 
-    title:"cricket stars"
+    title:"cricket stars",
+    jwt_key:"ShahrukhKhan"
 }
 
 module.exports = {constants}

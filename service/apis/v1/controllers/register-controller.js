@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const User = require('../models/user-model.js'); // Updated import for your User schema
 const saltRounds = 10;
+const constants = require('../constants.js')
 
 
 //Helper function
@@ -13,7 +14,7 @@ async function sendOTPByEmail(email, otp, userName) {
     service: 'Gmail',
     auth: {
       user: 'Abhishekkange00@gmail.com', // Replace with your email
-      pass: 'your_app_password', // Replace with app-specific password
+      pass: 'omfi djkw vzxn xrde', // Replace with app-specific password
     },
     tls: {
       rejectUnauthorized: false,
@@ -35,7 +36,7 @@ async function sendOTPByEmail(email, otp, userName) {
 
 
 //Required Functions
-async function register(req,res)
+async function registerHandler(req,res)
 {
     try {
         const { email, phone, username, password } = req.body;
@@ -49,19 +50,21 @@ async function register(req,res)
         // Hash password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
     
+        // Send OTP for email verification
+        const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Random 6-digit OTP
+        await sendOTPByEmail(email, otp, username);
+
         // Save user to DB
         const newUser = new User({
           email,
           phone,
           username,
           password: hashedPassword,
+          otp:otp,
+          isVerified:false
         });
     
         await newUser.save();
-    
-        // Send OTP for email verification
-        const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Random 6-digit OTP
-        await sendOTPByEmail(email, otp, username);
     
         res.status(201).json({ message: 'User registered. Verify your email.', otp });
       } catch (error) {
@@ -70,4 +73,4 @@ async function register(req,res)
       }
 }
 
-module.exports = {register}
+module.exports = {registerHandler}

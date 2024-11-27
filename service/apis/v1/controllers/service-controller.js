@@ -1,3 +1,5 @@
+const {OTP,generateOtp} = require('../middlewares/sendotp')
+
 
 async function verifyOtp(req,res)
 {
