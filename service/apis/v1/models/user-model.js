@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { boolean } = require('webidl-conversions');
 const { Schema } = mongoose;
 
 // Define the User Schema
@@ -35,16 +34,15 @@ const userSchema = new Schema({
     enum: ['user', 'admin'],  // Only these roles are allowed
     default: 'user', // Default role is user
   },
-  otp:{
-    type:String,
+  otp: {
+    type: String,
   },
-  isVerified:{
-    type:boolean
-  }
+  isVerified: {
+    type: Boolean, // Corrected type
+  },
 }, {
   timestamps: true, // Adds createdAt and updatedAt fields
 });
-
 
 // Create the Mongoose model based on the schema
 const User = mongoose.model('User', userSchema);

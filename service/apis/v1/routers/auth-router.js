@@ -9,7 +9,7 @@ const Router = express.Router();
 Router.post('/register',registerController.registerHandler);
 
 // Verify OTP
-Router.post('/verifyotp',serviceController.verifyOtp);
+Router.post('/verifyotp',registerController.verifyOtp);
 
 // Login User
 Router.post('/login',loginController.login);

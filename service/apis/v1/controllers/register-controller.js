@@ -43,10 +43,13 @@ async function registerHandler(req,res)
     
         // Check if user exists
         const existingUser = await User.findOne({ $or: [{ email }, { phone }] });
-        if (existingUser) {
+        if (existingUser.isVerified==true) {
           return res.status(400).json({ message: 'User already exists. Please log in.' });
         }
-    
+        else if(existingUser.isVerified==false)
+        {
+          await User.findByIdAndDelete(existingUser._id);
+        }
         // Hash password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
     
@@ -73,4 +76,30 @@ async function registerHandler(req,res)
       }
 }
 
-module.exports = {registerHandler}
+//verify otp and complete registration
+async function verifyOtp(req,res)
+{
+    const { email, otp } = req.body;
+
+    const user = await User.findOne({email:email});
+
+    if(user)
+    {
+      if (otp === user.otp) {
+        await User.findByIdAndUpdate(user._id,{isVerified:true});
+        return res.status(200).json({ message: 'OTP verified successfully' });
+
+      } else {
+
+        return res.status(400).json({ message: 'Invalid OTP' });
+      }
+
+    }
+    else{
+      return res.json({"message":"user not found"});
+    }
+    
+
+}
+
+module.exports = {registerHandler,verifyOtp}
