@@ -16,6 +16,7 @@ app.use(express.json());
 
 //middleware
 app.use('/api/v1',require('./service/apis/v1/routers/auth-router')) //AUTHENTICATION ROUTE
+app.use('/api/v1',require('./service/apis/v1/routers/product-router')) //PRODUCT ROUTE
 
 
 app.listen(PORT,()=>{
