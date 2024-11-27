@@ -5,9 +5,14 @@ const cors = require('cors');
 const connectToMongoose = require('./service/apis/v1/db/db')
 
 //mongo db connection
+connectToMongoose();
+
 
 
 const app = express();
+
+//middleware to parse json
+app.use(express.json());
 
 //middleware
 app.use('/api/v1',require('./service/apis/v1/routers/auth-router')) //AUTHENTICATION ROUTE

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { boolean } = require('webidl-conversions');
 const { Schema } = mongoose;
 
 // Define the User Schema
@@ -34,6 +35,12 @@ const userSchema = new Schema({
     enum: ['user', 'admin'],  // Only these roles are allowed
     default: 'user', // Default role is user
   },
+  otp:{
+    type:String,
+  },
+  isVerified:{
+    type:boolean
+  }
 }, {
   timestamps: true, // Adds createdAt and updatedAt fields
 });
